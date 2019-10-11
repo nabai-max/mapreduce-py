@@ -2,6 +2,7 @@
 
 import sys
 import socket
+import re
 
 class Mapper:
     def __init__(self):
@@ -15,11 +16,17 @@ class Mapper:
                 
     def map(self):
         for line in sys.stdin:
-            # self._log(line)
             line = line.strip()
+            line = re.sub('[.,:;?!|]', '', line)
             words = line.split()
+            twoWords = None
+            lastWord = None
+            
             for word in words:
-                print('{}\t{}'.format(word, 1))
+                if lastWord:
+                    twoWords = lastWord + ' ' + word
+                    print('{}\t{}'.format(twoWords, 1))
+                lastWord = word
 
 # Main
 
