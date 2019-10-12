@@ -22,3 +22,7 @@ Need these folders in hdfs:
 hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.2.0.jar -input /user/student/shakespeare -output /user/student/shakespeare/output -mapper /home/student/dev/week_8/mapreduce-py/mapper.py -reducer /home/student/dev/week_8/mapreduce-py/reducer.py
 
 ```
+
+## Installing pip3:
+
+sudo apt install python3-pip
