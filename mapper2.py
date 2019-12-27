@@ -19,14 +19,14 @@ class Mapper:
             line = line.strip()
             line = re.sub('[.,:;?!|]', '', line)
             words = line.split()
-            twoWords = None
-            lastWord = None
+            two_words = None
+            last_word = None
             
             for word in words:
-                if lastWord:
-                    twoWords = lastWord + ' ' + word
-                    print('{}\t{}'.format(twoWords, 1))
-                lastWord = word
+                if last_word:
+                    two_words = last_word + ' ' + word
+                    print('{}\t{}'.format(two_words, 1))
+                last_word = word
 
 # Main
 

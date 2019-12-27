@@ -3,6 +3,7 @@
 import socket
 import sys
 
+
 class Socket2Console:
     def __init__(self):
         # Create a UDP socket
@@ -12,7 +13,7 @@ class Socket2Console:
         self.server_address = ('localhost', 10000)
         print('starting up on {} port {}'.format(*self.server_address))
         self.sock.bind(self.server_address)
-        
+
     def data2Console(self):
         while True:
             data, address = self.sock.recvfrom(4096)
@@ -24,6 +25,7 @@ class Socket2Console:
 def main(argv):
     sock2Console = Socket2Console()
     sock2Console.data2Console()
+
 
 if __name__ == "__main__":
     main(sys.argv[:1])
