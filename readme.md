@@ -1,28 +1,23 @@
-# Mapreduce programming with Python Example
+# Mapreduce programming with Python 
+This project contains two MapReduce (MR) applications:
+    - Word Count
+    - Flights By Carriers
 
-This program is an equivalent of a word count problem in Java.
-
-## Prerequisites
-
-If you need data to run, consider `https://github.com/drkiettran/mapreduce/src/main/resources/tragedy`
-
-Need these folders in hdfs:
-
+## Assumption
+Need to use cisc-525-util repository to:
+    - start up hadoop
+    - prepare data (make sure you have the data downloaded and stored in the right place)
+    - verify data loaded correctly
+        
+## Run Word Count MR application
+```shell script
+cd word_count
+./word_count_run.sh word_count_mapper.py word_count_reducer.py /user/student/shakespeare/tragedy/othello.txt /tmp/othello
+hdfs dfs -cat /tmp/othelo/part-00000
 ```
-
-/user/student/shakespeare
-/user/student/shakespeare/output
-
+## Run airline performance MR application
+```shell script
+cd air-traffic
+./airline_run.sh flights_by_carriers_mapper.py flights_by_carriers_reducer.py /user/student/airline/1987.csv /tmp/1987
+hdfs dfs -cat /tmp/1987/part-00000
 ```
-
-## Running the program
-
-```bash
-
-hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.2.0.jar -input /user/student/shakespeare -output /user/student/shakespeare/output -mapper /home/student/dev/week_8/mapreduce-py/mapper.py -reducer /home/student/dev/week_8/mapreduce-py/reducer.py
-
-```
-
-## Installing pip3:
-
-sudo apt install python3-pip
