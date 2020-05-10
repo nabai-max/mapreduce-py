@@ -17,7 +17,7 @@ class Socket2Console:
     def data2Console(self):
         while True:
             data, address = self.sock.recvfrom(4096)
-            print('{}: {}'.format(address, data))
+            print('{}: {}'.format(address, data.decode('utf-8').rstrip()))
 
 
 # Main

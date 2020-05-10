@@ -2,6 +2,7 @@
 
 import sys
 import socket
+import string
 
 
 class Mapper:
@@ -16,9 +17,9 @@ class Mapper:
     def map(self):
         self._log('mapping ...')
         for line in sys.stdin:
-            line = line.strip()
             self._log(line)
-            words = line.split()
+            line = line.strip().rstrip().lower()
+            words = line.translate(str.maketrans('', '', string.punctuation)).split()
             for word in words:
                 print('{}\t{}'.format(word, 1))
 
