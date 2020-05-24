@@ -25,7 +25,7 @@ hdfs dfs -cat /tmp/othelo/part-00000
 cd air-traffic
 ./airline_run.sh flights_by_carriers_mapper.py flights_by_carriers_reducer.py /user/student/airline/1987.csv /tmp/1987
 hdfs dfs -cat /tmp/1987/part-00000
-
+```
 
 ## Create Python codes for flighs by origin
 Mapper
@@ -67,9 +67,10 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[:1])
-
+```
 
 Reduccer
+
 ```shell script 
 #!/usr/bin/env python3
 
@@ -120,6 +121,8 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[:1])
+```
+
 ## Run the application
 
 ```shell script
@@ -131,7 +134,7 @@ hdfs dfs -cat /tmp/2001/part-00000
 ./airline_run.sh flights_by_origin_mapper.py flights_by_origin_reducer.py /user/student/airline/2000.csv /tmp/2002
 hdfs dfs -cat /tmp/2002/part-00000
 
-
+```
 
 ## Create Python codes for flighs by departure
 
