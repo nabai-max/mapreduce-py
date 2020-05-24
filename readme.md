@@ -137,6 +137,99 @@ hdfs dfs -cat /tmp/2002/part-00000
 ```
 
 ## Create Python codes for flighs by departure
+Mapper
+```
+#!/usr/bin/env python3
+
+import sys
+import socket
+import re
+
+
+class FlightsByDeptCitiesMapper:
+    def __init__(self):
+        # initial code
+        self.count = 0
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.server_address = ('localhost', 10000)
+
+    def _log(self, message):
+        self.sock.sendto(message.encode(), self.server_address)
+
+    def map(self):
+        for line in sys.stdin:
+            # self._log(line)
+            s = re.sub('[.,:;?!|]', ' ', line).split()
+            # self._log(s[0])
+            if s[0] == 'Year':
+                self._log(line)
+            else:
+                print('{}\t{}'.format(s[17], 1))
+
+
+# Main
+
+def main(argv):
+    flightsByDeptCitiesMapper = FlightsByDeptCitiesMapper()
+    flightsByDeptCitiesMapper.map()
+
+
+if __name__ == "__main__":
+    main(sys.argv[:1])
+    
+```
+Reducer
+```
+#!/usr/bin/env python3
+
+import sys
+import socket
+import re
+
+class FlightsByDeptCitiesReducer:
+    def __init__(self):
+        # initial code
+        self.count = 0
+        self.current_word = None
+        self.word = None
+        
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.server_address = ('localhost', 10000)
+        
+    def _log(self, message):
+        self.sock.sendto(message.encode(), self.server_address)
+                
+    def reduce(self):
+        for line in sys.stdin:
+            # self._log(line)
+         
+            line = line.strip()
+            self.word, count = line.split('\t', 1)
+            try:
+                count = int(count)
+            except ValueError:
+                continue
+            
+            if self.current_word == self.word:
+                self.current_count += count
+            else:
+                if self.current_word:
+                    print ('{}\t{}'.format(self.current_word, self.current_count))
+                self.current_count = count
+                self.current_word = self.word
+                
+        if self.current_word == self.word:
+            print('{}\t{}'.format(self.current_word, self.current_count))
+
+# Main
+
+def main(argv):
+    flightsByDeptCitiesReducer = FlightsByDeptCitiesReducer()
+    flightsByDeptCitiesReducer.reduce()
+
+if __name__ == "__main__":
+    main(sys.argv[:1])
+```
 
 ## Run the application
 
